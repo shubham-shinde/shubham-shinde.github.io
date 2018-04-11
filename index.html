@@ -1,0 +1,129 @@
+<!doctype HTML>
+<html>
+	<head>
+		<title>CodePLayer</title>
+	<script src="lib/jquery-3.3.1.slim.js"></script>	
+	<script src="./lib/ace-build/ace.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			* { margin:0px;
+				padding:0px; 
+			}
+			.container {
+				position: relative;
+			}
+			.container > div {
+				display: inline-block;
+				width: 29.6%;
+				margin-left: 2.9%;
+				height: 40px;
+				background-color: blue;
+				text-align: center;
+				color: white;
+				font-size: 22px
+
+			}
+			.container > div:nth-child(2) {
+				background-color: rgb(184, 14, 113);
+			}
+			.container > div:nth-child(3) {
+				background-color: rgb(58, 29, 29);
+			}
+			textarea { 
+				height:610px;						
+				resize:none;
+			}
+			.panel {                
+                float:left;
+                width: 33%;
+                border-left: none;
+            }            
+            iframe {                
+                border:none;                
+            }
+		</style>	
+	</head>
+	<body>
+	
+	<div id="topbar">
+		<div class="container">
+			<div class="button active" id="html">HTML</div>
+			<div class="button" id="css">CSS</div>
+			<div class="button active" id="output">OUTPUT</div>
+		</div>
+	</div>
+	<div id="bodycontainer">
+		<div id="htmltext" class="panel"></div>
+		<div id="csstext" class="panel"></div>
+		<iframe id="outputtext" class="panel"></iframe>
+	</div>
+
+	<script>
+		var html = ``;
+		var css = ``;
+		var htmlEditor = ace.edit("htmltext");
+		htmlEditor.setTheme("ace/theme/chrome");
+		htmlEditor.session.setMode("ace/mode/html");
+		htmlEditor.session.on('change', function(delta) {    		
+			html = htmlEditor.getValue();
+		});
+		htmlEditor.setValue(`<div class="heart"></div>`);
+		document.getElementById('htmltext').style.fontSize='16px';
+		document.getElementById('htmltext').style.backgroundColor='lightblue';
+
+		var cssEditor = ace.edit("csstext");
+		cssEditor.setTheme("ace/theme/chrome");
+		cssEditor.session.setMode("ace/mode/css");
+		cssEditor.session.on('change', function(delta) {    		
+			css = cssEditor.getValue();
+		});
+		cssEditor.setValue(
+			`.heart {
+		        animation: heart 1s infinite;
+				position: relative;
+				margin:20px;
+				height: 170px;
+				width: 200px;
+			}
+			.heart:before,
+			.heart:after {
+				border-radius: 50px 50px 0 0;
+				position: absolute;
+				width: 100px;
+				height: 160px;
+				background: red;
+				content: '';
+			}
+			.heart:before {
+				left:100px;
+				transform: rotate(-45deg);
+				transform-origin: 0 100%;
+			}
+			.heart:after {
+				left:0;
+				transform: rotate(45deg);
+				transform-origin: 100% 100%;
+
+			}       
+			@keyframes heart {
+				0% {transform: scale(1,1)}
+				50% {transform: scale(1.2,1.2)}
+				100% {transform: scale(1,1)}
+			}`
+		);
+		document.getElementById('csstext').style.fontSize='16px';
+		document.getElementById('csstext').style.backgroundColor='lightpink';
+	
+			console.log($("textarea"));
+        	function update() {                
+                $("iframe").contents().find("html").html("<html><head><style type='text/css'>" + css + "</style></head><body>" + html + "</body></html>");                
+            }				
+            $(".panel").height($(window).height() - $(".container").height());
+            $(".panel").width(($(window).width() / 3) - 10);			
+			update();
+			$("textarea").on('change keyup paste', function() {    
+            	update();
+			});
+		</script>
+        
+	</body>
+</html>
