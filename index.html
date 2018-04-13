@@ -2,60 +2,161 @@
 <html>
 	<head>
 		<title>CodePLayer</title>
-	<script src="lib/jquery-3.3.1.slim.js"></script>	
-	<script src="./lib/ace-build/ace.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="lib/jquery-3.3.1.slim.js"></script>	
+		<script src="./lib/ace-build/ace.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			* { margin:0px;
-				padding:0px; 
+				padding:0px;
 			}
-			.container {
-				position: relative;
-			}
-			.container > div {
+			.input {
 				display: inline-block;
-				width: 29.6%;
-				margin-left: 2.9%;
-				height: 40px;
-				background-color: blue;
+				display: none;
+			}
+			#menu {
+				position: absolute;
+				top:0;
+				left:0;
+				z-index: 10;
+				width: 100vw;
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
 				text-align: center;
+			}
+			#menu > label > div {
+				background-color: blue;
+				font-size: 1.4em;
 				color: white;
-				font-size: 22px
+				width: calc(100% - 4px);
+				border: 2px solid white;
+			}
+			#container {
+				padding-top:30px;
+				height: calc(100vh - 30px);
+				position: relative;
+				display: grid;
+				grid-template-columns: 100vw 100vw 100vw;
+				grid-template-rows: 100%;
+				grid-template-areas: "html css output";
+				overflow: hidden;
+				transition: all 0.2s
+			}
+			#container > div > .button {
+				font-size: 1.3em;
+				background-color: aqua;
+				width: 100%;
+				text-align: center;
+			}
+			.htmlClass {
+				grid-area: html;
+			}
+			.cssClass {
+				grid-area: css;
+			}
+			.outputClass {
+				grid-area: output;
+			}
+			.panel {
+				height: calc(100% - 24px);
+				width: 100%;
+			}
+			#htmlLabel:checked ~ #container {
+				grid-template-areas: "html css output";
+				
+			}
+			#cssLabel:checked ~ #container {
+				grid-template-areas: "css html output";
 
 			}
-			.container > div:nth-child(2) {
-				background-color: rgb(184, 14, 113);
+			#outputLabel:checked ~ #container {
+				grid-template-areas: "output html css";
+
 			}
-			.container > div:nth-child(3) {
-				background-color: rgb(58, 29, 29);
+			.phoneImg {
+				position: absolute;
+				text-align:center;
+				z-index: 0;
 			}
-			textarea { 
-				height:610px;						
-				resize:none;
+			#iframe {
+				z-index: 10;
+				height: calc(100% - 24px);
+				width: 100%;
 			}
-			.panel {                
-                float:left;
-                width: 33%;
-                border-left: none;
-            }            
-            iframe {                
-                border:none;                
-            }
+			@media screen and (min-width: 600px) {
+				#container {
+				padding-top:30px;
+				height: calc(100vh - 30px);
+				position: relative;
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				grid-template-rows: 100%;
+				grid-template-areas: "html css output";
+				overflow: hidden;
+			}
+				
+			#container > div > .button {
+				font-size: 1.3em;
+				background-color: aqua;
+				width: 100%;
+				text-align: center;
+				display: none;
+			}
+			#htmlLabel:checked ~ #container {
+				grid-template-areas: "html css output";
+				
+			}
+			#cssLabel:checked ~ #container {
+				grid-template-areas: "html css output";
+
+			}
+			#outputLabel:checked ~ #container {
+				grid-template-areas: "html css output";
+
+			}
+			}
 		</style>	
 	</head>
 	<body>
-	
-	<div id="topbar">
-		<div class="container">
-			<div class="button active" id="html">HTML</div>
-			<div class="button" id="css">CSS</div>
-			<div class="button active" id="output">OUTPUT</div>
+	<input type="checkbox" class="input" id="htmlLabel"/>
+	<input type="checkbox" class="input" id="cssLabel"/>
+	<input type="checkbox" class="input" id="outputLabel"/>
+	<div id="menu">		
+		<label for="htmlLabel">
+				<div class="menuButton" id="html">HTML</div>
+		</label>			
+		<label for="cssLabel">
+				<div class="menuButton" id="css">CSS</div>
+		</label>					
+		<label for="outputLabel">
+				<div class="menuButton" id="output">OUTPUT</div>
+		</label>
+	</div>
+	<div id="container">
+		<div class="htmlClass">
+			<div class="button" id="html">HTML</div>
+			<div id="htmltext" class="panel"></div>
+		</div>
+		<div class="cssClass">
+			<div class="button" id="css">CSS</div>			
+			<div id="csstext" class="panel"></div>
+		</div>
+		<div class="outputClass">
+			<div class="button">OUTPUT</div>
+			<!-- <div>				
+				<img src="./lib/s8.png" alt="">
+			</div>-->
+			<!-- <center>
+				<div class="phoneImg" id="iphone">
+					<img src="./lib/iphones.png" alt="">
+				</div>	
+			</center> -->
+			<div id="iframe">
+				<iframe id="outputtext" class="panel"></iframe>
+			</div>		 
+			
 		</div>
 	</div>
-	<div id="bodycontainer">
-		<div id="htmltext" class="panel"></div>
-		<div id="csstext" class="panel"></div>
-		<iframe id="outputtext" class="panel"></iframe>
-	</div>
+	
 
 	<script>
 		var html = ``;
@@ -78,50 +179,66 @@
 		});
 		cssEditor.setValue(
 			`.heart {
-		        animation: heart 1s infinite;
-				position: relative;
-				margin:20px;
-				height: 170px;
-				width: 200px;
-			}
-			.heart:before,
-			.heart:after {
-				border-radius: 50px 50px 0 0;
-				position: absolute;
-				width: 100px;
-				height: 160px;
-				background: red;
-				content: '';
-			}
-			.heart:before {
-				left:100px;
-				transform: rotate(-45deg);
-				transform-origin: 0 100%;
-			}
-			.heart:after {
-				left:0;
-				transform: rotate(45deg);
-				transform-origin: 100% 100%;
+    animation: heart 1s infinite;
+	position: relative;
+	margin:20px;
+	height: 170px;
+	width: 200px;
+}
+.heart:before,
+.heart:after {
+	border-radius: 50px 50px 0 0;
+	position: absolute;
+	width: 100px;
+	height: 160px;
+	background: red;
+	content: '';
+}
+.heart:before {
+	left:100px;
+	transform: rotate(-45deg);
+	transform-origin: 0 100%;
+}
+.heart:after {
+	left:0;
+	transform: rotate(45deg);
+	transform-origin: 100% 100%;
 
-			}       
-			@keyframes heart {
-				0% {transform: scale(1,1)}
-				50% {transform: scale(1.2,1.2)}
-				100% {transform: scale(1,1)}
-			}`
+}       
+@keyframes heart {
+	0% {transform: scale(1,1)}
+	50% {transform: scale(1.2,1.2)}
+	100% {transform: scale(1,1)}
+}`
 		);
 		document.getElementById('csstext').style.fontSize='16px';
 		document.getElementById('csstext').style.backgroundColor='lightpink';
 	
 			console.log($("textarea"));
         	function update() {                
-                $("iframe").contents().find("html").html("<html><head><style type='text/css'>" + css + "</style></head><body>" + html + "</body></html>");                
-            }				
-            $(".panel").height($(window).height() - $(".container").height());
-            $(".panel").width(($(window).width() / 3) - 10);			
+                $("iframe")
+				.contents()
+				.find("html")
+				.html(
+					`<html>
+						<head>
+							<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+							<style type='text/css'>` + css + `</style>
+						</head>
+						<body>
+						` + html + `
+						</body>
+					</html>`
+				);                
+			}			
 			update();
 			$("textarea").on('change keyup paste', function() {    
             	update();
+			});
+			$(".menuButton").on('click', function() {
+				document.getElementById("htmlLabel").checked = false;
+				document.getElementById("cssLabel").checked = false;
+				document.getElementById("outputLabel").checked = false;
 			});
 		</script>
         
