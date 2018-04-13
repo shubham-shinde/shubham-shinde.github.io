@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<title>CodePLayer</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="lib/jquery-3.3.1.slim.js"></script>	
 		<script src="./lib/ace-build/ace.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<style type="text/css">
 			* { margin:0px;
 				padding:0px;
@@ -24,28 +24,36 @@
 				text-align: center;
 			}
 			#menu > label > div {
-				background-color: blue;
-				font-size: 1.4em;
+				background-color: rgb(32, 190, 53);
+				font-family: cursive;
+				font-size: 1.5em;
+				padding: 5px;
 				color: white;
-				width: calc(100% - 4px);
-				border: 2px solid white;
+				width: calc(100% - 16px);
+				border: 3px solid rgb(201, 197, 197);
 			}
 			#container {
-				padding-top:30px;
-				height: calc(100vh - 30px);
+				padding-top:49px;
+				height: calc(100vh - 49px);
 				position: relative;
 				display: grid;
 				grid-template-columns: 100vw 100vw 100vw;
 				grid-template-rows: 100%;
 				grid-template-areas: "html css output";
 				overflow: hidden;
-				transition: all 0.2s
 			}
 			#container > div > .button {
 				font-size: 1.3em;
+				padding: 2px;
 				background-color: aqua;
 				width: 100%;
 				text-align: center;
+			}
+			#container > .cssClass > .button {
+				background-color: palevioletred;
+			}
+			#container > .outputClass > .button {
+				background-color: rgb(255, 102, 0);
 			}
 			.htmlClass {
 				grid-area: html;
@@ -57,7 +65,7 @@
 				grid-area: output;
 			}
 			.panel {
-				height: calc(100% - 24px);
+				height: calc(100% - 28px);
 				width: 100%;
 			}
 			#htmlLabel:checked ~ #container {
@@ -79,40 +87,40 @@
 			}
 			#iframe {
 				z-index: 10;
-				height: calc(100% - 24px);
+				height: calc(100% - 28px);
 				width: 100%;
 			}
-			@media screen and (min-width: 600px) {
+			@media screen and (min-width: 900px) {
 				#container {
-				padding-top:30px;
-				height: calc(100vh - 30px);
-				position: relative;
-				display: grid;
-				grid-template-columns: 1fr 1fr 1fr;
-				grid-template-rows: 100%;
-				grid-template-areas: "html css output";
-				overflow: hidden;
-			}
-				
-			#container > div > .button {
-				font-size: 1.3em;
-				background-color: aqua;
-				width: 100%;
-				text-align: center;
-				display: none;
-			}
-			#htmlLabel:checked ~ #container {
-				grid-template-areas: "html css output";
-				
-			}
-			#cssLabel:checked ~ #container {
-				grid-template-areas: "html css output";
+					padding-top:49px;
+					height: calc(100vh - 49px);
+					position: relative;
+					display: grid;
+					grid-template-columns: 1fr 1fr 1fr;
+					grid-template-rows: 100%;
+					grid-template-areas: "html css output";
+					overflow: hidden;
+				}
+					
+				#container > div > .button {
+					font-size: 1.3em;
+					background-color: aqua;
+					width: 100%;
+					text-align: center;
+					display: none;
+				}
+				#htmlLabel:checked ~ #container {
+					grid-template-areas: "html css output";
+					
+				}
+				#cssLabel:checked ~ #container {
+					grid-template-areas: "html css output";
 
-			}
-			#outputLabel:checked ~ #container {
-				grid-template-areas: "html css output";
+				}
+				#outputLabel:checked ~ #container {
+					grid-template-areas: "html css output";
 
-			}
+				}
 			}
 		</style>	
 	</head>
