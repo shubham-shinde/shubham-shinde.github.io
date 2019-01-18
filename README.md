@@ -6,4 +6,6 @@ To start writing code just clone the repo and open HTML file in browser.
 
 Suggestion is to be add.
 
+Open url https://shubham-shinde.github.io/ .
+
 Thankyou.
