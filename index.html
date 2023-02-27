@@ -1,254 +1,487 @@
-<!doctype HTML>
-<html>
-	<head>
-		<title>CodePLayer</title>
-		<script src="lib/jquery-3.3.1.slim.js"></script>	
-		<script src="./lib/ace-build/ace.js" type="text/javascript" charset="utf-8"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<style type="text/css">
-			* { margin:0px;
-				padding:0px;
-			}
-			.input {
-				display: inline-block;
-				display: none;
-			}
-			#menu {
-				position: absolute;
-				top:0;
-				left:0;
-				z-index: 10;
-				width: 100vw;
-				display: grid;
-				grid-template-columns: 1fr 1fr 1fr;
-				text-align: center;
-			}
-			#menu > label > div {
-				background-color: rgb(32, 190, 53);
-				font-family: cursive;
-				font-size: 1.5em;
-				padding: 5px;
-				color: white;
-				width: calc(100% - 16px);
-				border: 3px solid rgb(201, 197, 197);
-			}
-			#container {
-				padding-top:49px;
-				height: calc(100vh - 49px);
-				position: relative;
-				display: grid;
-				grid-template-columns: 100vw 100vw 100vw;
-				grid-template-rows: 100%;
-				grid-template-areas: "html css output";
-				overflow: hidden;
-			}
-			#container > div > .button {
-				font-size: 1.3em;
-				padding: 2px;
-				background-color: aqua;
-				width: 100%;
-				text-align: center;
-			}
-			#container > .cssClass > .button {
-				background-color: palevioletred;
-			}
-			#container > .outputClass > .button {
-				background-color: rgb(255, 102, 0);
-			}
-			.htmlClass {
-				grid-area: html;
-			}
-			.cssClass {
-				grid-area: css;
-			}
-			.outputClass {
-				grid-area: output;
-			}
-			.panel {
-				height: calc(100% - 28px);
-				width: 100%;
-			}
-			#htmlLabel:checked ~ #container {
-				grid-template-areas: "html css output";
-				
-			}
-			#cssLabel:checked ~ #container {
-				grid-template-areas: "css html output";
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>shubham shinde - Middler of Golgotias College of Engineering & Technology</title>
+        <meta name="google-site-verification" content="GV_MMMCfD9nnlBoH2uqVHpzoDW28gV7jhW5ErbRxw-E" />
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="description" content="I'm a middler of Galgotias College of Engineering and Technology with Information Technology branch. I have a passion for coding, developing new things and learning technologies.">
+        <meta name="keywords" content="Shubham, Shinde, Galgotias College, Maratha, Developer, Indian Developer, Founder of College Buzzer, collegebuzzer, College Buzzer">
+        <meta name="author" content="templatemo">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/slick.css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/templatemo-style.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+    </head>
+    <body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-			}
-			#outputLabel:checked ~ #container {
-				grid-template-areas: "output html css";
+        <!-- PRE LOADER -->
 
-			}
-			.phoneImg {
-				position: absolute;
-				text-align:center;
-				z-index: 0;
-			}
-			#iframe {
-				z-index: 10;
-				height: calc(100% - 28px);
-				width: 100%;
-			}
-			@media screen and (min-width: 900px) {
-				#container {
-					padding-top:49px;
-					height: calc(100vh - 49px);
-					position: relative;
-					display: grid;
-					grid-template-columns: 1fr 1fr 1fr;
-					grid-template-rows: 100%;
-					grid-template-areas: "html css output";
-					overflow: hidden;
-				}
-					
-				#container > div > .button {
-					font-size: 1.3em;
-					background-color: aqua;
-					width: 100%;
-					text-align: center;
-					display: none;
-				}
-				#htmlLabel:checked ~ #container {
-					grid-template-areas: "html css output";
-					
-				}
-				#cssLabel:checked ~ #container {
-					grid-template-areas: "html css output";
+        <div class="preloader">
+            <div class="spinner">
+                <span class="spinner-rotate"></span>
+            </div>
+        </div>
 
-				}
-				#outputLabel:checked ~ #container {
-					grid-template-areas: "html css output";
+        <!-- Navigation Section -->
 
-				}
-			}
-		</style>	
-	</head>
-	<body>
-	<input type="checkbox" class="input" id="htmlLabel"/>
-	<input type="checkbox" class="input" id="cssLabel"/>
-	<input type="checkbox" class="input" id="outputLabel"/>
-	<div id="menu">		
-		<label for="htmlLabel">
-				<div class="menuButton" id="html">HTML</div>
-		</label>			
-		<label for="cssLabel">
-				<div class="menuButton" id="css">CSS</div>
-		</label>					
-		<label for="outputLabel">
-				<div class="menuButton" id="output">OUTPUT</div>
-		</label>
-	</div>
-	<div id="container">
-		<div class="htmlClass">
-			<div class="button" id="html">HTML</div>
-			<div id="htmltext" class="panel"></div>
-		</div>
-		<div class="cssClass">
-			<div class="button" id="css">CSS</div>			
-			<div id="csstext" class="panel"></div>
-		</div>
-		<div class="outputClass">
-			<div class="button">OUTPUT</div>
-			<!-- <div>				
-				<img src="./lib/s8.png" alt="">
-			</div>-->
-			<!-- <center>
-				<div class="phoneImg" id="iphone">
-					<img src="./lib/iphones.png" alt="">
-				</div>	
-			</center> -->
-			<div id="iframe">
-				<iframe id="outputtext" class="panel"></iframe>
-			</div>		 
-			
-		</div>
-	</div>
-	
+        <div class="navbar navbar-fixed-top custom-navbar" role="navigation">
+            <div class="container">
+                <!-- navbar header -->
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon icon-bar"></span>
+                        <span class="icon icon-bar"></span>
+                        <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Shubham Shinde</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#home" class="smoothScroll">Home</a></li>
+                        <li><a href="#about" class="smoothScroll">About Me</a></li>
+                        <li><a href="#experience" class="smoothScroll">Experiences</a></li>
+                        <li><a href="#quotes" class="smoothScroll">Testimonial</a></li>
+                        <li><a href="#contact" class="smoothScroll">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-	<script>
-		var html = ``;
-		var css = ``;
-		var htmlEditor = ace.edit("htmltext");
-		htmlEditor.setTheme("ace/theme/chrome");
-		htmlEditor.session.setMode("ace/mode/html");
-		htmlEditor.session.on('change', function(delta) {    		
-			html = htmlEditor.getValue();
-		});
-		htmlEditor.setValue(`<div class="heart"></div>`);
-		document.getElementById('htmltext').style.fontSize='16px';
-		document.getElementById('htmltext').style.backgroundColor='lightblue';
+        <!-- Home Section -->
 
-		var cssEditor = ace.edit("csstext");
-		cssEditor.setTheme("ace/theme/chrome");
-		cssEditor.session.setMode("ace/mode/css");
-		cssEditor.session.on('change', function(delta) {    		
-			css = cssEditor.getValue();
-		});
-		cssEditor.setValue(
-			`.heart {
-    animation: heart 1s infinite;
-	position: relative;
-	margin:20px;
-	height: 170px;
-	width: 200px;
-}
-.heart:before,
-.heart:after {
-	border-radius: 50px 50px 0 0;
-	position: absolute;
-	width: 100px;
-	height: 160px;
-	background: red;
-	content: '';
-}
-.heart:before {
-	left:100px;
-	transform: rotate(-45deg);
-	transform-origin: 0 100%;
-}
-.heart:after {
-	left:0;
-	transform: rotate(45deg);
-	transform-origin: 100% 100%;
+        <section id="home" class="parallax-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="home-img"></div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="home-thumb">
+                            <div class="section-title">
+                                <h4 class="wow fadeInUp" data-wow-delay="0.3s">welcome to my website</h4>
+                                <h1 class="wow fadeInUp" data-wow-delay="0.6s">Hello, I am <strong>Shubham Shinde</strong></h1>
+                                <p class="wow fadeInUp" data-wow-delay="0.9s">I love to code since it makes a difference in peoples’ lives. Currently working as a full-stack developer at BYJUS. I have completed B.Tect from Galgotaia College of Engineering and Technology, Greater Noida</p>
+                                <a href="https://docs.google.com/document/d/1aTDiqAkQqkSiu49kYWWmgHp4hZq0yVxu" target="_blank" class="wow fadeInUp smoothScroll section-btn btn btn-success" data-wow-delay="1.4s">View CV</a>
+                                <a href="#about" class="wow fadeInUp smoothScroll section-btn btn btn-success" data-wow-delay="1.4s">Get Started</a>
+                                <a href="https://github.com/shubham-shinde" target="_blank" class="fa fa-github wow fadeInUp smoothScroll section-btn btn btn-success" data-wow-delay="1.4s"></a>
+                                <a href="https://www.linkedin.com/in/shubham-shinde-a37382154/" target="_blank" class="fa fa-linkedin wow fadeInUp smoothScroll section-btn btn btn-success" data-wow-delay="1.4s"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-}       
-@keyframes heart {
-	0% {transform: scale(1,1)}
-	50% {transform: scale(1.2,1.2)}
-	100% {transform: scale(1,1)}
-}`
-		);
-		document.getElementById('csstext').style.fontSize='16px';
-		document.getElementById('csstext').style.backgroundColor='lightpink';
-	
-			console.log($("textarea"));
-        	function update() {                
-                $("iframe")
-				.contents()
-				.find("html")
-				.html(
-					`<html>
-						<head>
-							<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-							<style type='text/css'>` + css + `</style>
-						</head>
-						<body>
-						` + html + `
-						</body>
-					</html>`
-				);                
-			}			
-			update();
-			$("textarea").on('change keyup paste', function() {    
-            	update();
-			});
-			$(".menuButton").on('click', function() {
-				document.getElementById("htmlLabel").checked = false;
-				document.getElementById("cssLabel").checked = false;
-				document.getElementById("outputLabel").checked = false;
-			});
-		</script>
-        
-	</body>
+        <!-- About Section -->
+
+        <section id="about" class="parallax-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="about-thumb">
+                            <div class="wow fadeInUp section-title" data-wow-delay="0.4s">
+                                <h1>Full-Stack Developer</h1>
+                                <p class="color-yellow">I'm a Young Software Developer working for 4 years on Web Technology and Full-Stack Development</p>
+                            </div>
+                            <div class="wow fadeInUp" data-wow-delay="0.8s">
+                                <p>I Love working with technologies espacially web and andriod and been wanting to jump over it always.</p>
+                                <!-- <p>Persuing my dream I build a social media <a href="http://collegebuzzer.com">Collegebuzzer</a> for my campus. Collegebuzzer is a app were club can post there recent events and anoucements with photos for campus students.</p> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="background-image about-img" style="min-height: 50vh;"></div>
+                    </div>
+                    <div class="bg-yellow col-md-3 col-sm-6">
+                        <div class="skill-thumb">
+                            <div class="wow fadeInUp section-title color-white" data-wow-delay="1.2s">
+                                <h1>My Skills</h1>
+                                <p class="color-white">MERN( MongoDB, Express, React, NodeJS) . C++ . Full-Stack Development . Unity</p>
+                            </div>
+                            <div class=" wow fadeInUp skills-thumb" data-wow-delay="1.6s">
+                                <strong>NodeJs + MongoDB</strong>
+                                <span class="color-white pull-right">90%</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                                </div>
+                                <strong>C++ & Data Structure</strong>
+                                <span class="color-white pull-right">80%</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                                </div>
+                                <strong>ReactJs & React Native + Redux</strong>
+                                <span class="color-white pull-right">80%</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                </div>
+                                <strong>HTML5 & CSS3</strong>
+                                <span class="color-white pull-right">90%</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Section -->
+
+        <!-- <section id="service" class="parallax-section">
+            <div class="container">
+            <div class="row">
+
+            <div class="bg-yellow col-md-3 col-sm-6">
+            <div class="wow fadeInUp color-white service-thumb" data-wow-delay="0.8s">
+            <i class="fa fa-desktop"></i>
+            <h3>Interface Design</h3>
+            <p class="color-white">Phasellus vulputate tellus nec tortor varius elementum. Curabitur at pulvinar ante.</p>
+            </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+            <div class="wow fadeInUp color-white service-thumb" data-wow-delay="1.2s">
+            <i class="fa fa-paper-plane"></i>
+            <h3>Media Strategy</h3>
+            <p class="color-white">Curabitur at pulvinar ante. Duis dui urna, faucibus eget felis eu, iaculis congue sem.</p>
+            </div>
+            </div>
+
+            <div class="bg-dark col-md-3 col-sm-6">
+            <div class="wow fadeInUp color-white service-thumb" data-wow-delay="1.6s">
+            <i class="fa fa-table"></i>
+            <h3>Mobile App</h3>
+            <p class="color-white">Mauris convallis eros massa, vitae euismod arcu tempus ut. Quisque viverra iaculis.</p>
+            </div>
+            </div>
+
+            <div class="bg-white col-md-3 col-sm-6">
+            <div class="wow fadeInUp service-thumb" data-wow-delay="1.8s">
+            <i class="fa fa-html5"></i>
+            <h3>Coding</h3>
+            <p>Mauris convallis eros massa, vitae euismod arcu tempus ut. Quisque viverra iaculis.</p>
+            </div>
+            </div>
+
+            </div>
+            </div>
+            </section> -->
+
+            <!-- Experience Section -->
+
+            <section id="experience" class="parallax-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="background-image experience-img"></div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="color-white experience-thumb">
+                                <div class="wow fadeInUp section-title" data-wow-delay="0.8s">
+                                    <h1>My Experiences</h1>
+                                    <p class="color-white">Previous companies and my tasks</p>
+                                </div>
+                                <div class="wow fadeInUp color-white media" data-wow-delay="1.2s">
+                                    <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading">Full Stack Developer Intern<small>May 2018 ­ July 2018</small></h3>
+                                        <p class="color-white">Build a Web page for bidding of Spaceship Assets at CryptoSpaceX. Spaceship Assets were token generated by Blockchain
+                                            Technology deployed on Ethereum Virtual Machine</p>
+                                    </div>
+                                </div>
+                                <div class="wow fadeInUp color-white media" data-wow-delay="1.6s">
+                                    <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading">Web Developer<small>July 2017 ­ April 2018</small></h3>
+                                        <p class="color-white">Build a Web Application for Management and Skill testing of Students in College system at Konfinity</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+
+            <section id="education" class="parallax-section" style="overflow: hidden;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="color-white education-thumb">
+                                <div class="wow fadeInUp section-title" data-wow-delay="0.8s">
+                                    <h1>My Education</h1>
+                                    <p class="color-white">I'm a Learner and Developer</p>
+                                </div>
+                                <div class="wow fadeInUp color-white media" data-wow-delay="1.2s">
+                                    <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading">Bachelor of Technology<small> 2016 - 2020</small></h3>
+                                        <p class="color-white">I'm a middler from Galgotias College of Engineering and Technology with Information Technology branch. I have a passion for coding, developing new things and learning technologies.</p>
+                                    </div>
+                                </div>
+                                <div class="wow fadeInUp color-white media" data-wow-delay="1.6s">
+                                    <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading">Web Development Classes<small>July 2017 ­ April 2018</small></h3>
+                                        <p class="color-white">I Joined Konfinity for Web Development Course and Build a Teacher Student Interactive System for Colleges.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="background-image education-img"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="app-screenshots-area bg-white section_padding_0_100 clearfix" id="screenshot" style="padding: 20px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <!-- Heading Text  -->
+                            <div class="section-heading">
+                                <h2>My Projects</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="education-thumb">
+                                <div class="wow fadeInUp section-title" data-wow-delay="0.8s">
+                                    <h1><a href="http://collegebuzzer.com/#/">College Buzzer</a></h1>
+                                    <p class="">Everything you need to get connected to your college</p>
+                                </div>
+
+                                <div class="wow fadeInUp  media" data-wow-delay="1.2s">
+                                    <!-- <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                        </div> -->
+                                        <div class="media-body">
+                                            <!-- <h3 class="media-heading">Bachelor of Technology<small> 2016 - 2020</small></h3> -->
+                                            <p class="" style="font-size: 19px">Build a mobile and web based social media application. App was used by 4000 students on campus. Open <a href="http://collegebuzzer.com/#/">http://collegebuzzer.com/#/</a></p>
+                                        </div>
+                                </div>
+
+                                <div class="wow fadeInUp  media" data-wow-delay="1.6s">
+                                    <!-- <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                        </div> -->
+                                        <div class="media-body">
+                                            <!-- <h3 class="media-heading">Web Development Classes<small>July 2017 ­ April 2018</small></h3> -->
+                                            <p class="" style="font-size: 19px">Clubs and Students are able to post an detailed description of events with photos seen by each and every student in campus. Students have a profile to maintain just like facebook with updated skills and achievements. </p>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <!-- App Screenshots Slides  -->
+                            <div class="app_screenshots_slides owl-carousel">
+                                <div class="single-shot">
+                                    <img src="images/scr-img/app-1.jpg" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/scr-img/app-2.jpg" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/scr-img/app-3.jpg" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/scr-img/app-4.jpg" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/scr-img/app-5.jpg" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/scr-img/app-3.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <!-- App Screenshots Slides  -->
+                            <div class="app_screenshots_slidess owl-carousel">
+                                <div class="single-shot">
+                                    <img src="images/codelive/app-1.png" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/codelive/app-2.png" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/codelive/app-3.png" alt="">
+                                </div>
+                                <div class="single-shot">
+                                    <img src="images/codelive/app-4.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="education-thumb">
+                                <div class="wow fadeInUp section-title" data-wow-delay="0.8s">
+                                    <h1><a href="http://codelive.cf">codelive.cf</a></h1>
+                                    <p class="">Only for lazy Developers</p>
+                                </div>
+
+                                <div class="wow fadeInUp  media" data-wow-delay="1.2s">
+                                    <!-- <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                        </div> -->
+                                        <div class="media-body">
+                                            <!-- <h3 class="media-heading">Bachelor of Technology<small> 2016 - 2020</small></h3> -->
+                                            <p class="" style="font-size: 19px">A web based live code editor. Open <a href="http://codelive.cf">http://codelive.cf</a></p>
+                                        </div>
+                                </div>
+
+                                <div class="wow fadeInUp  media" data-wow-delay="1.6s">
+                                    <!-- <div class="media-object media-left">
+                                        <i class="fa fa-laptop"></i>
+                                        </div> -->
+                                        <div class="media-body">
+                                            <!-- <h3 class="media-heading">Web Development Classes<small>July 2017 ­ April 2018</small></h3> -->
+                                            <p class="" style="font-size: 19px">This is a Code Editor for CSS and HTML were programmer will have live representation of output. This app is very helpful for those who makes aniamtions using HTML & CSS.</p>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Quotes Section -->
+
+            <section id="quotes" class="parallax-section">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-offset-1 col-md-10 col-sm-12">
+                            <i class="wow fadeInUp fa fa-star" data-wow-delay="0.6s"></i>
+                            <h2 class="wow fadeInUp" data-wow-delay="0.8s">Bad programmer worry about the code. Good programmers worry about data structures and their relationships.</h2>
+                            <!-- <p class="wow fadeInUp" data-wow-delay="1s">Curabitur at pulvinar ante. Duis dui urna, faucibus eget felis eu, iaculis congue sem.</p> -->
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Contact Section -->
+
+            <section id="contact" class="parallax-section">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- <div class="col-md-6 col-sm-12">
+                            <div class="contact-form">
+                            <div class="wow fadeInUp section-title" data-wow-delay="0.2s">
+                            <h1 class="color-white">Say hello..</h1>
+                            <p class="color-white">Integer ut consectetur est. In cursus orci non ipsum gravida dignissim.</p>
+                            </div>
+
+                            <div id="contact-form">
+                            <form action="#template-mo" method="post">
+                            <div class="wow fadeInUp" data-wow-delay="1s">
+                            <input name="fullname" type="text" class="form-control" id="fullname" placeholder="Your Name">
+                            </div>
+                            <div class="wow fadeInUp" data-wow-delay="1.2s">
+                            <input name="email" type="email" class="form-control" id="email" placeholder="Your Email">
+                            </div>
+                            <div class="wow fadeInUp" data-wow-delay="1.4s">
+                            <textarea name="message" rows="5" class="form-control" id="message" placeholder="Write your message..."></textarea>
+                            </div>
+                            <div class="wow fadeInUp col-md-6 col-sm-8" data-wow-delay="1.6s">
+                            <input name="submit" type="submit" class="form-control" id="submit" value="Send">
+                            </div>
+                            </form>
+                            </div>
+
+                            </div>
+                            </div> -->
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="background-image contact-img"></div>
+                            </div>
+
+                            <div class="bg-dark col-md-6 col-sm-12">
+                                <div class="contact-thumb">
+                                    <!-- <div class="wow fadeInUp contact-info" data-wow-delay="0.6s">
+                                        <h3 class="color-white">Visit my office</h3>
+                                        <p>456 New Street 22000, New York City, USA</p>
+                                        </div> -->
+
+                                        <div class="wow fadeInUp contact-info" data-wow-delay="0.8s">
+                                            <h3 class="color-white">Contact.</h3>
+                                            <p><i class="fa fa-phone"></i>+91-9839883416</p>
+                                            <p><i class="fa fa-envelope-o"></i> <a href="mailto:shindes0321@gmail.com">shindes0321@gmail.com</a></p>
+                                            <p><i class="fa fa-globe"></i> <a href="#">Sanskar hostel, Knowledge park 3, Greater Noida</a></p>
+                                            <p><i class="fa fa-home"></i><a href="#">CK 64/75- 1 Heerapura, Kabir Chaurah, Varanasi</a></p>
+                                            <p><i class="fa fa-graduation-cap"></i> <a href="#">Galgotias College of Engineering and Technology, Greater Noida</a></p>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <ul class="wow fadeInUp social-icon" style="text-align: left" data-wow-delay="2s">
+                                                    <li><a href="https://www.facebook.com/profile.php?id=100007365829484&ref=bookmarks" class="fa fa-facebook"></a></li>
+                                                    <!-- <li><a href="#" class="fa fa-twitter"></a></li> -->
+                                                    <li><a href="https://plus.google.com/u/0/113781258679642036444" class="fa fa-google-plus"></a></li>
+                                                    <li><a href="https://github.com/shubham-shinde" class="fa fa-github"></a></li>
+                                                    <li><a href="https://www.linkedin.com/in/shubham-shinde-a37382154/" class="fa fa-linkedin"></a></li>
+                                                </ul>
+                                                <div class="wow fadeInUp footer-copyright" data-wow-delay="1.8s">
+                                                    <p>Copyright &copy; to Shubham Shinde</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Footer Section -->
+
+            <!-- <footer>
+                <div class="container">
+
+                </div>
+                </footer> -->
+
+                <!-- SCRIPTS -->
+
+                <script src="js/jquery.js"></script>
+                <script src="js/bootstrap.min.js"></script>
+                <script src="js/jquery.parallax.js"></script>
+                <script src="js/smoothscroll.js"></script>
+                <script src="js/plugins.js"></script>
+                <script src="js/popper.min.js"></script>
+                <script src="js/slick.min.js"></script>
+                <script src="js/wow.min.js"></script>
+                <script src="js/custom.js"></script>
+
+    </body>
 </html>
