@@ -7,14 +7,15 @@ http://www.templatemo.com/tm-498-stimulus
 */
 
 body {
-	background: #ffffff;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-style: normal;
-	font-weight: 300;
-    overflow-x: hidden;
+  background: #ffffff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  overflow-x: hidden;
 }
 
-html,body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -24,12 +25,19 @@ html,body {
     Typorgraphy
 -----------------------------------------*/
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-style: normal;
   font-weight: 300;
 }
 
-h1,h2,h3 {
+h1,
+h2,
+h3 {
   font-weight: 300;
 }
 
@@ -70,11 +78,11 @@ strong {
 }
 
 p {
-    color: #888;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 28px;
-    letter-spacing: 0.2px;
+  color: #888;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 28px;
+  letter-spacing: 0.2px;
 }
 
 .section-btn {
@@ -89,6 +97,21 @@ p {
   margin-top: 42px;
   transition: all 0.4s ease-in-out;
   text-transform: uppercase;
+}
+
+.section-btn-hovered {
+  border: 3px solid #232B2B;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1.6px;
+  padding: 12px 36px;
+  margin-top: 42px;
+  transition: all 0.4s ease-in-out;
+  text-transform: uppercase;
+  background: #E3AE57;
+  border-color: transparent;
+  color: #ffffff;
 }
 
 .section-btn:hover {
@@ -132,7 +155,7 @@ p {
 }
 
 #experience .experience-thumb,
-#education .education-thumb  {
+#education .education-thumb {
   padding: 22px 42px 42px 42px;
 }
 
@@ -148,17 +171,18 @@ footer {
 }
 
 .background-image {
-    background-position: 50% 50% !important;
-    background-size: cover !important;
-    width: 100%;
-    height: 100%;
-    min-height: 75vh;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  background-position: 50% 50% !important;
+  background-size: cover !important;
+  width: 100%;
+  height: 100%;
+  min-height: 75vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
+
 .app_screenshots_slides {
   padding: 0 6%;
 }
@@ -199,6 +223,7 @@ footer {
   width: 100%;
   text-align: center;
 }
+
 .color-white {
   color: #ffffff;
 }
@@ -225,7 +250,7 @@ footer {
     General
 -----------------------------------------*/
 
-html{
+html {
   -webkit-font-smoothing: antialiased;
 }
 
@@ -236,7 +261,10 @@ a {
   transition: 0.5s;
   text-decoration: none !important;
 }
-a:hover, a:active, a:focus {
+
+a:hover,
+a:active,
+a:focus {
   color: #E3AE57;
   outline: none;
 }
@@ -297,11 +325,15 @@ a:hover, a:active, a:focus {
 }
 
 @-webkit-@keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 
@@ -311,69 +343,70 @@ a:hover, a:active, a:focus {
 -----------------------------------------*/
 
 .custom-navbar {
-    margin-bottom: 0;
-    background-color: #ffffff;
+  margin-bottom: 0;
+  background-color: #ffffff;
 }
 
 .custom-navbar .navbar-brand {
-    color: #333;
-	text-shadow: 1px 1px #fff;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 35px;
-    letter-spacing: 1px;
+  color: #333;
+  text-shadow: 1px 1px #fff;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  letter-spacing: 1px;
 }
 
 .custom-navbar .nav li a {
-    color: #666;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    line-height: 40px;
-    transition: all 0.4s ease-in-out;
+  color: #666;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 40px;
+  transition: all 0.4s ease-in-out;
 }
 
 .custom-navbar .nav li a:hover {
-    background: transparent;
-    color: #E3AE57;
+  background: transparent;
+  color: #E3AE57;
 }
 
-.custom-navbar .navbar-nav > li > a:hover,
-.custom-navbar .navbar-nav > li > a:focus {
+.custom-navbar .navbar-nav>li>a:hover,
+.custom-navbar .navbar-nav>li>a:focus {
   background-color: transparent;
 }
 
-.custom-navbar .nav li.active > a {
-    background-color: transparent;
-    color: #E3AE57;
+.custom-navbar .nav li.active>a {
+  background-color: transparent;
+  color: #E3AE57;
 }
 
 .custom-navbar .navbar-toggle {
-    border: none;
-    padding-top: 10px;
+  border: none;
+  padding-top: 10px;
 }
 
 .custom-navbar .navbar-toggle {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .custom-navbar .navbar-toggle .icon-bar {
-    background: #E3AE57;
-    border-color: transparent;
+  background: #E3AE57;
+  border-color: transparent;
 }
 
 @media(min-width:768px) {
-    .custom-navbar {
-        padding: 12px 0;
-        border-bottom: 0;
-        background: 0 0;
-    }
-    .custom-navbar.top-nav-collapse {
-        background: #ffffff;
-        box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
-        padding: 0;
-    }
+  .custom-navbar {
+    padding: 12px 0;
+    border-bottom: 0;
+    background: 0 0;
+  }
+
+  .custom-navbar.top-nav-collapse {
+    background: #ffffff;
+    box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
+    padding: 0;
+  }
 
 }
 
@@ -389,7 +422,7 @@ a:hover, a:active, a:focus {
 
 #home .col-md-6 {
   background: #f1e2d7;
-/* light blue color: #c3eafd; */
+  /* light blue color: #c3eafd; */
   padding-right: 0;
   padding-left: 0;
 }
@@ -422,7 +455,7 @@ a:hover, a:active, a:focus {
 -----------------------------------------*/
 
 #about .about-img {
-    background: url('../images/about-img.jpg') no-repeat;
+  background: url('../images/about-img.jpg') no-repeat;
 }
 
 #about .about-thumb,
@@ -529,21 +562,21 @@ a:hover, a:active, a:focus {
 -----------------------------------------*/
 
 #quotes {
-    background: url('../images/quotes-bg.jpg') 50% 0 repeat-y fixed;
-    background-size: cover;
-    background-position: center center;
-    color: #ffffff;
-    position: relative;
-    padding: 100px 0px;
+  background: url('../images/quotes-bg.jpg') 50% 0 repeat-y fixed;
+  background-size: cover;
+  background-position: center center;
+  color: #ffffff;
+  position: relative;
+  padding: 100px 0px;
 }
 
 #quotes .overlay {
-    background: #121212;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    opacity: 0.7;
+  background: #121212;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  opacity: 0.7;
 }
 
 #quotes .fa {
@@ -581,9 +614,18 @@ a:hover, a:active, a:focus {
   padding-bottom: 6px;
 }
 
-#contact .form-control::-moz-placeholder{color:#ffffff;opacity:1}
-#contact .form-control:-ms-input-placeholder{color:#ffffff}
-#contact .form-control::-webkit-input-placeholder{color:#ffffff}
+#contact .form-control::-moz-placeholder {
+  color: #ffffff;
+  opacity: 1
+}
+
+#contact .form-control:-ms-input-placeholder {
+  color: #ffffff
+}
+
+#contact .form-control::-webkit-input-placeholder {
+  color: #ffffff
+}
 
 #contact .form-control {
   background: transparent;
@@ -631,7 +673,7 @@ a:hover, a:active, a:focus {
 -----------------------------------------*/
 
 footer {
-    padding: 140px 0px;
+  padding: 140px 0px;
 }
 
 
@@ -641,39 +683,39 @@ footer {
 -----------------------------------------*/
 
 .social-icon {
-    position: relative;
-    padding: 0;
-    margin: 0;
-    text-align: center;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  text-align: center;
 }
 
 .social-icon li {
-    display: inline-block;
-    list-style: none;
+  display: inline-block;
+  list-style: none;
 }
 
 .social-icon li a {
-    border: 2px solid transparent;
-    color: #999;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    transition: all 0.4s ease-in-out;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    vertical-align: middle;
-    position: relative;
-    margin: 22px 4px 10px 4px;
+  border: 2px solid transparent;
+  color: #999;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.4s ease-in-out;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  margin: 22px 4px 10px 4px;
 }
 
 .social-icon li a:hover {
-    background: #E3AE57;
-    border-color: #ffffff;
-    color: #ffffff;
-    transform: scale(1.1);
+  background: #E3AE57;
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: scale(1.1);
 }
 
 
@@ -747,11 +789,13 @@ footer {
   animation: blink-animation 0.4s steps(5, start) infinite;
   -webkit-animation: blink-animation 0.4s steps(5, start) infinite;
 }
+
 @keyframes blink-animation {
   to {
     visibility: hidden;
   }
 }
+
 @-webkit-keyframes blink-animation {
   to {
     visibility: hidden;
